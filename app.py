@@ -4,8 +4,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms import validators
 from wtforms.validators import DataRequired, Email
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, migrate
+
 
 # Create a Flask Instance
 app = Flask(__name__)
@@ -13,15 +15,17 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 # Secret Key!
 app.config['SECRET_KEY'] = "My super secret key that no one is supposed to know"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Initialize The Database
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+migrate = Migrate(app, db)
 
 # Create Modal
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
+    favorite_color = db.Column(db.String(120))
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Create a String
@@ -33,6 +37,7 @@ class Users(db.Model):
 class UserForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
+    favorite_color = StringField("Favorite Color")
     submit = SubmitField("Submit")
 
 
@@ -49,6 +54,7 @@ def update(id):
     if request.method == "POST":
         name_to_update.name = request.form['name']
         name_to_update.email = request.form['email']
+        name_to_update.favorite_color = request.form['favorite_color']
         try:
             db.session.commit()
             flash("User Updated Successfully!")
@@ -68,12 +74,14 @@ def add_user():
     if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(name=form.name.data, email=form.email.data)
+            user = Users(name=form.name.data, email=form.email.data, favorite_color=form.favorite_color.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
         form.name.data = ''
         form.email.data = ''
+        form.favorite_color.data = ''
+
         flash("User Added Successfully")
     our_users = Users.query.order_by(Users.date_added)
     return render_template("add_user.html", form=form, name=name, our_users=our_users)
