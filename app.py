@@ -33,6 +33,12 @@ class Users(db.Model):
         return '<Name %r>' % self.name
 
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    user_to_delete = Users.query
+
+
+
 # Create a Form Class
 class UserForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
