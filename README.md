@@ -50,3 +50,4 @@ u2.password = 'cat'         - lets use same password
 u2.password_hash            - hashes are diffrent (correct)
                 arswer correct:     
                 'pbkdf2:sha256:260000$xzDWKZ9DupKwgxoj$cc7c985c0bd536caaea06c33b05d340826161432f1dd2962359ac04c20f5508c'
+exit()
