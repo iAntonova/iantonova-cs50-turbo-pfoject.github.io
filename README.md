@@ -20,13 +20,33 @@ SQLAlchemy==1.4.29
 Werkzeug==2.0.2
 WTForms==3.0.1
 
-to start:
-.venv\scripts\activate
-python -m flask run
+to start(macOS):
+>export FLASK_APP=application.py
+>export FLASK_ENV=development
+>python3 -m flask run
 
-to add to .gitignore:
-git status
-git rm -r --cached __pycache__
+to start(win):
+>.venv\scripts\activate
+>python -m flask run
+
+to add to .gitignore(win+macOS):
+>git status
+>git rm -r --cached __pycache__
+
+MIGRATE(macOS):
+>python3 -m flask db 
+>python3 -m flask db init
+>python3 -m flask db migrate -m 'Initial Migration'
+>python3 -m flask db upgrade 
+MIGRATE(win):
+>flask db migrate -m 'added password field
+
+
+(14) - Using Hashed Passwords For Registration 
+# password_hash not in db yet -> megrate
+> python3 -m flask db migrate -m 'added password field'
+> python3 -m flask db upgrade 
+# add fields to add_user.html -> app.py
 
 (13) - Hashing Passwords With Werkzeug
 flask shell
