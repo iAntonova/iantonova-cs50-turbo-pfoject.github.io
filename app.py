@@ -11,7 +11,7 @@ from flask_migrate import Migrate, migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
 from wtforms.widgets import TextArea
-from wtforms.widgets.core import TextArea
+
 
 # Create a Flask Instance
 app = Flask(__name__)
