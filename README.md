@@ -41,6 +41,11 @@ MIGRATE(macOS):
 MIGRATE(win):
 >flask db migrate -m 'added password field
 
+# (17) - Add A Blog Post Model and Form 
+The class Posts(db.Model) was created -> megrate
+>python3 -m flask db migrate -m 'Add Posts Model'
+> python3 -m flask db upgrade
+
 # (16) - How To Return JSON With Flask For an API
 
 # (15) - Comparing Hashed Passwords To Plaintext Passwords
