@@ -9,7 +9,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from datetime import date
 
 # Create a Flask Instance
 app = Flask(__name__)
@@ -21,6 +21,17 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Initialize The Database
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# JSON thing
+@app.route('/date')
+def get_current_date():
+    favorite_pizza = {
+        "John": "Pepperoni",
+        "Mary": "Cheese",
+        "Tim": "Mushrooms"
+    }
+    return favorite_pizza
+    #return {"Date": date.today()}
 
 # Create Modal
 class Users(db.Model):

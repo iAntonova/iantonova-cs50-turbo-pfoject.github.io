@@ -41,8 +41,9 @@ MIGRATE(macOS):
 MIGRATE(win):
 >flask db migrate -m 'added password field
 
-# (15) - Comparing Hashed Passwords To Plaintext Passwords
+# (16) - How To Return JSON With Flask For an API
 
+# (15) - Comparing Hashed Passwords To Plaintext Passwords
 
 # (14) - Using Hashed Passwords For Registration 
 #password_hash not in db yet -> megrate
