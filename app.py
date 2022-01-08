@@ -187,9 +187,11 @@ def test_pw():
         pw_to_check = Users.query.filter_by(email=email).first()
 
         # Check Hashed assword
+        passed = check_password_hash(pw_to_check.password_hash, password)
 
 
-    return render_template("test_pw.html", email = email, password = password, pw_to_check = pw_to_check, form = form)
+    return render_template("test_pw.html", email = email, password = password, 
+            pw_to_check = pw_to_check, passed = passed, form = form)
 
 # Create Name Page
 @app.route('/name', methods=['GET', 'POST'])
