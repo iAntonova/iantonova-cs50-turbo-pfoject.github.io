@@ -41,6 +41,8 @@ MIGRATE(macOS):
 MIGRATE(win):
 >flask db migrate -m 'added password field
 
+# (18) - Show Blog Posts Page
+
 # (17) - Add A Blog Post Model and Form 
 The class Posts(db.Model) was created -> migrate
 > python3 -m flask db migrate -m 'Add Posts Model'
